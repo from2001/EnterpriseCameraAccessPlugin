@@ -84,7 +84,9 @@ public func CallCSharpCallbackOfCameraAccess(_ str: String)
     str.withCString {
         sCallbackDelegateOfCameraAccess!($0)
     }
-}import RealityKit
+};
+
+import RealityKit
 import MetalKit
 import Accelerate
 

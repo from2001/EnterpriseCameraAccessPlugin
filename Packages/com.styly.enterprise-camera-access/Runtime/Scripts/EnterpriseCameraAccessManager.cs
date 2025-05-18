@@ -243,7 +243,13 @@ public class EnterpriseCameraAccessManager : MonoBehaviour
 
         _texture = Texture2D.CreateExternalTexture(_width, _height, TextureFormat.BGRA32, false, false, _texturePtr);
         _texture.UpdateExternalTexture(_texturePtr);
-        Graphics.Blit(_texture, _renderTexture);
+        
+        // スケールとオフセットを使用して上下反転を行う
+        // scale.y を -1 にすることで上下反転、offset.y を 1 にすることで位置を調整
+        Vector2 scale = new Vector2(1, -1);
+        Vector2 offset = new Vector2(0, 1);
+        
+        Graphics.Blit(_texture, _renderTexture, scale, offset);
         PreviewMaterial.mainTexture = _renderTexture;
 
         _hasSetTexture = true;
@@ -251,7 +257,11 @@ public class EnterpriseCameraAccessManager : MonoBehaviour
 
     private void UpdateTexture()
     {
-        Graphics.Blit(_texture, _renderTexture);
+        // スケールとオフセットを使用して上下反転を行う
+        Vector2 scale = new Vector2(1, -1);
+        Vector2 offset = new Vector2(0, 1);
+        
+        Graphics.Blit(_texture, _renderTexture, scale, offset);
         Unity.PolySpatial.PolySpatialObjectUtils.MarkDirty(_renderTexture);
     }
 #endif
